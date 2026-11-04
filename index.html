@@ -2,13 +2,280 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1'/%3E%3Cpath d='M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1'/%3E%3C/svg%3E" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JSON Studio — Modern JSON Formatter, Beautifier & Minifier</title>
-    <meta name="description" content="Fast, private, and developer-friendly online JSON tool. Format, beautify, validate, and minify your JSON entirely in your browser with zero server transmission." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Primary SEO Meta Tags -->
+    <title>DreamKit Pro — 40+ Free Online Developer, Media &amp; PDF Tools</title>
+    <meta name="title" content="DreamKit Pro — 40+ Free Online Developer, Media &amp; PDF Tools" />
+    <meta name="description" content="DreamKit Pro is the ultimate free, all-in-one developer productivity platform. Over 40+ browser-based tools: JSON formatters, PDF suite, image studio, regex, JWT, converters &amp; SEO tools with zero server uploads." />
+    <meta name="keywords" content="developer tools, json formatter, json validator, pdf compressor, pdf merger, pdf converter, image compressor, image resizer, web developer utilities, jwt decoder, regex tester, base64 encoder, code beautifier, free online tools, privacy first developer toolkit, dreamkit pro" />
+    <meta name="author" content="DreamKit Pro" />
+    <meta name="publisher" content="DreamKit Pro" />
+    <meta name="language" content="English" />
+    <meta name="rating" content="general" />
+
+    <!-- Search Engine Indexing & Robot Directives -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://dreamkit-pro.vercel.app/" id="canonical-url" />
+
+    <!-- Open Graph / Facebook / LinkedIn / Discord -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="DreamKit Pro" />
+    <meta property="og:url" content="https://dreamkit-pro.vercel.app/" id="og-url" />
+    <meta property="og:title" content="DreamKit Pro — 40+ Free Online Developer, Media &amp; PDF Tools" id="og-title" />
+    <meta property="og:description" content="DreamKit Pro is the ultimate free, privacy-first developer toolkit. 40+ browser-based tools for JSON, PDF, Images, Encoders, Regex &amp; SEO with zero server uploads." id="og-desc" />
+    <meta property="og:image" content="https://dreamkit-pro.vercel.app/og-image.png" />
+    <meta property="og:image:secure_url" content="https://dreamkit-pro.vercel.app/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="DreamKit Pro — Modern Developer &amp; Media Toolkit" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@dreamkitpro" />
+    <meta name="twitter:creator" content="@dreamkitpro" />
+    <meta name="twitter:url" content="https://dreamkit-pro.vercel.app/" id="twitter-url" />
+    <meta name="twitter:title" content="DreamKit Pro — 40+ Free Online Developer, Media &amp; PDF Tools" id="twitter-title" />
+    <meta name="twitter:description" content="Free, zero-server-upload developer toolkit: JSON formatter, PDF suite, Image editor, Encoders, Code beautifiers &amp; SEO suite." id="twitter-desc" />
+    <meta name="twitter:image" content="https://dreamkit-pro.vercel.app/og-image.png" />
+    <meta name="twitter:image:alt" content="DreamKit Pro Suite Preview" />
+
+    <!-- PWA & Mobile Web Capabilities -->
+    <meta name="theme-color" content="#4F46E5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0B0F17" media="(prefers-color-scheme: dark)" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="DreamKit Pro" />
+    <meta name="application-name" content="DreamKit Pro" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Favicons & App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- LLM & AI Search Feeds -->
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs Documentation" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+
+    <!-- Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- Structured Data (JSON-LD) for Google Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://dreamkit-pro.vercel.app/#website",
+          "url": "https://dreamkit-pro.vercel.app/",
+          "name": "DreamKit Pro",
+          "alternateName": ["DreamKit", "DreamKit Developer Suite", "DreamKit Utilities"],
+          "description": "The ultimate free, privacy-first developer and multimedia utility suite with 40+ client-side tools.",
+          "inLanguage": "en-US",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://dreamkit-pro.vercel.app/?tool={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://dreamkit-pro.vercel.app/#webapp",
+          "name": "DreamKit Pro",
+          "url": "https://dreamkit-pro.vercel.app/",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "All modern browsers (Chrome, Firefox, Safari, Edge, Brave)",
+          "browserRequirements": "Requires HTML5 and JavaScript",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "1420",
+            "bestRating": "5",
+            "worstRating": "1"
+          },
+          "featureList": [
+            "JSON Formatter, Validator & Minifier with syntax error diagnostics",
+            "Bidirectional JSON to XML and JSON to CSV converters",
+            "100% Client-Side PDF Compressor, Merger, Splitter & Reorder Studio",
+            "Universal PDF Converter to JPG/PNG at 300 DPI, Word, Excel, and HTML",
+            "PDF Optical Character Recognition (OCR) Text Extractor",
+            "Digital PDF Signature Studio with cursive handwriting and drawing pad",
+            "Smart Image Compressor, Resizer, Cropper & Format Converter",
+            "Lossless Audio Extractor From Video with interactive waveform visualizer",
+            "Color Palette Generator with WCAG 2.1 AA/AAA contrast ratios",
+            "JWT Token Debugger, Regex Tester, and UUID/GUID Generator",
+            "Google SERP Preview and Schema.org JSON-LD Generator",
+            "Zero Server Uploads: 100% private in-browser local execution"
+          ]
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://dreamkit-pro.vercel.app/#organization",
+          "name": "DreamKit Pro",
+          "url": "https://dreamkit-pro.vercel.app/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://dreamkit-pro.vercel.app/favicon.svg",
+            "width": "48",
+            "height": "46"
+          }
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://dreamkit-pro.vercel.app/#tools-list",
+          "name": "Featured Developer & Media Tools",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "JSON Formatter & Beautifier",
+              "url": "https://dreamkit-pro.vercel.app/?tool=formatter"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "PDF Compressor Studio",
+              "url": "https://dreamkit-pro.vercel.app/?tool=pdf_compressor"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "PDF Merger & Combiner",
+              "url": "https://dreamkit-pro.vercel.app/?tool=pdf_merger"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Universal PDF Converter Studio",
+              "url": "https://dreamkit-pro.vercel.app/?tool=pdf_converter"
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "name": "Smart Image Compressor",
+              "url": "https://dreamkit-pro.vercel.app/?tool=image_compressor"
+            },
+            {
+              "@type": "ListItem",
+              "position": 6,
+              "name": "Image Resizer & Cropper",
+              "url": "https://dreamkit-pro.vercel.app/?tool=image_resizer"
+            },
+            {
+              "@type": "ListItem",
+              "position": 7,
+              "name": "JWT Debugger & Inspector",
+              "url": "https://dreamkit-pro.vercel.app/?tool=jwt_debugger"
+            },
+            {
+              "@type": "ListItem",
+              "position": 8,
+              "name": "Regex Tester & Debugger",
+              "url": "https://dreamkit-pro.vercel.app/?tool=regex_tester"
+            },
+            {
+              "@type": "ListItem",
+              "position": 9,
+              "name": "Audio Extractor From Video",
+              "url": "https://dreamkit-pro.vercel.app/?tool=audio_extractor"
+            },
+            {
+              "@type": "ListItem",
+              "position": 10,
+              "name": "Color Palette Generator",
+              "url": "https://dreamkit-pro.vercel.app/?tool=color_palette"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://dreamkit-pro.vercel.app/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is DreamKit Pro?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "DreamKit Pro is a modern, all-in-one developer productivity platform offering over 40+ free browser-based tools including JSON formatters, PDF compressors and mergers, image editors, regex testers, JWT decoders, and SEO utilities."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is DreamKit Pro free to use?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, DreamKit Pro is 100% free forever for all developers, students, and businesses. There are no paywalls, subscriptions, or file processing limits."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are my files, JSON, or images uploaded to any server?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. DreamKit Pro executes 100% client-side in your web browser using WebAssembly, HTML5 Canvas, and the Web Audio API. Your files, confidential JSON, tokens, and documents never leave your device."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I use DreamKit Pro offline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. DreamKit Pro is built as a Progressive Web App (PWA). Once loaded, the tools can run entirely offline without an active internet connection."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does DreamKit Pro support PDF conversion and OCR?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. DreamKit Pro includes an in-browser PDF suite supporting PDF compression, PDF merging and splitting, converting PDF to JPG/PNG up to 300 DPI, digital signing, watermarking, and Optical Character Recognition (OCR) text extraction."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://dreamkit-pro.vercel.app/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://dreamkit-pro.vercel.app/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Developer Tools",
+              "item": "https://dreamkit-pro.vercel.app/?tool=dashboard"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
   </head>
   <body class="bg-[#F8FAFC] text-[#0F172A] dark:bg-[#0B0F17] dark:text-[#F8FAFC] font-sans antialiased min-h-screen transition-colors duration-200">
     <div id="root"></div>

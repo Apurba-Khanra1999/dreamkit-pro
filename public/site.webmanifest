@@ -1,0 +1,25 @@
+{
+  "name": "DreamKit Pro — 40+ Developer, Media & PDF Tools",
+  "short_name": "DreamKit Pro",
+  "description": "Fast, 100% private in-browser developer, media, and PDF productivity suite with 40+ zero-server-upload tools.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#060911",
+  "theme_color": "#4F46E5",
+  "orientation": "any",
+  "categories": ["developer", "utilities", "productivity", "photo"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "48x48 72x72 96x96 128x128 256x256",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

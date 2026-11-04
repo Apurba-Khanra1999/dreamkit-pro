@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useRef, useCallback } from 'react';
 import {
-  FileText,
   Type,
   AlignLeft,
   Clock,
@@ -313,26 +312,16 @@ Analyzed locally and securely in DreamKit Developer Studio.
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
-      {/* =========================================================================
-          MODULE HEADER
-         ========================================================================= */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white dark:bg-[#111622] border border-slate-200/80 dark:border-slate-800 shadow-xs">
-        <div className="flex items-center gap-3.5">
-          <div className="p-2.5 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-600 text-white shadow-md shadow-emerald-500/20">
-            <FileText className="w-6 h-6" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
-                Word & Content Intelligence Counter
-              </h1>
-              <span className="px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
-                Live Metrics
-              </span>
-            </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Accurate count of words, characters, sentences, paragraphs, reading speed, readability grade, and social media constraints.
-            </p>
+      {/* Top Action & Status Toolbar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 p-2.5 rounded-2xl bg-white dark:bg-[#111622] border border-slate-200/80 dark:border-slate-800 shadow-2xs">
+        {/* Left: Status & Capability Indicators */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
+            Live Metrics
+          </span>
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 text-[11px] text-slate-500 dark:text-slate-400">
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <span>100% In-Browser • Real-time Content Intelligence</span>
           </div>
         </div>
 

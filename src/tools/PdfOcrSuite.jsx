@@ -228,69 +228,46 @@ export default function PdfOcrSuite({ _theme = 'dark', onNotify }) {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
-      {/* Header Card */}
-      <div className="relative overflow-hidden rounded-2xl bg-white dark:bg-[#111622] border border-slate-200/80 dark:border-slate-800 shadow-xs p-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-200/40 dark:border-indigo-800/40">
-              <ScanText className="w-6 h-6 stroke-[2]" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-xl font-bold text-slate-900 dark:text-white">
-                  PDF OCR Text Extractor
-                </h1>
-                <span className="px-2 py-0.5 text-xs font-semibold rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-950/80 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
-                  Client-Side OCR
-                </span>
-              </div>
-              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-2xl">
-                Extract text from scanned PDFs, raster receipts, invoices, and documents. Supports Tesseract OCR, image contrast filters, bounding boxes, and export to TXT, Markdown, CSV, and JSON.
-              </p>
-            </div>
-          </div>
-
-          {/* Action Header Buttons */}
-          <div className="flex flex-wrap items-center gap-2 shrink-0">
-            <button
-              type="button"
-              onClick={handleLoadSampleInvoice}
-              disabled={isLoadingDoc || isExtracting}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-colors shadow-2xs disabled:opacity-50"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Load Sample Invoice</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setShowHistoryModal(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-            >
-              <History className="w-3.5 h-3.5" />
-              <span>History ({historyList.length})</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Security & Document Info Banner */}
-        <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-          <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-medium">
-            <ShieldCheck className="w-4 h-4" />
-            <span>100% In-Browser Optical Character Recognition • Zero External Server Uploads</span>
+      {/* Top Action & Status Toolbar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 p-2.5 rounded-2xl bg-white dark:bg-[#111622] border border-slate-200/80 dark:border-slate-800 shadow-2xs">
+        {/* Status & Privacy Badges */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-950/70 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-800">
+            Client-Side OCR
+          </span>
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-[11px] font-medium">
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>100% In-Browser Optical Character Recognition • Zero Server Uploads</span>
           </div>
           {loadedDoc && (
-            <div className="hidden sm:flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[11px] text-slate-500">
               <span>Pages: <strong className="text-slate-900 dark:text-white">{loadedDoc.pageCount}</strong></span>
               <span>•</span>
-              <span>
-                Document Type:{' '}
-                <strong className={loadedDoc.hasDigitalText ? 'text-indigo-600 dark:text-indigo-400' : 'text-amber-600 dark:text-amber-400'}>
-                  {loadedDoc.hasDigitalText ? 'Digital PDF' : 'Scanned / Raster Image'}
-                </strong>
-              </span>
+              <span>Type: <strong className={loadedDoc.hasDigitalText ? 'text-indigo-600 dark:text-indigo-400' : 'text-amber-600 dark:text-amber-400'}>{loadedDoc.hasDigitalText ? 'Digital' : 'Scanned'}</strong></span>
             </div>
           )}
+        </div>
+
+        {/* Action Header Buttons */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            type="button"
+            onClick={handleLoadSampleInvoice}
+            disabled={isLoadingDoc || isExtracting}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-colors shadow-2xs cursor-pointer disabled:opacity-50"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Load Sample Invoice</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setShowHistoryModal(true)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
+          >
+            <History className="w-3.5 h-3.5 text-slate-500" />
+            <span>History ({historyList.length})</span>
+          </button>
         </div>
       </div>
 

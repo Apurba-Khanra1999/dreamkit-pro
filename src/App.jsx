@@ -51,10 +51,12 @@ import AudioExtractorSuite from './tools/AudioExtractorSuite';
 import ColorPaletteSuite from './tools/ColorPaletteSuite';
 import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
+import ProfileSettingsModal from './components/ProfileSettingsModal';
 import Footer from './components/Footer';
 import ToastNotification from './components/ToastNotification';
 import CommandPalette from './components/CommandPalette';
 import { auth, onAuthStateChanged, logoutUser } from './config/firebase';
+import { getToolFromUrl, syncUrlWithTool, updateDocumentSeo } from './utils/seoHelper';
 
 export default function App() {
   // Authentication state
@@ -69,8 +71,26 @@ export default function App() {
     return 'light';
   });
 
-  // Active utility tool: starts on 'landing', then 'dashboard' or any tool
-  const [activeTool, setActiveTool] = useState('landing');
+  // Active utility tool: checks deep-link URL first (?tool=...), then persisted storage
+  const [activeTool, setActiveTool] = useState(() => {
+    const urlTool = getToolFromUrl();
+    if (urlTool) return urlTool;
+
+    const wasLoggedIn = localStorage.getItem('dreamkit_logged_in') === 'true';
+    const savedTool = localStorage.getItem('dreamkit_active_tool');
+
+    // If user was logged in, always restore their active workspace tool or default to dashboard, NEVER landing
+    if (wasLoggedIn) {
+      return (savedTool && savedTool !== 'landing' && savedTool !== 'login') ? savedTool : 'dashboard';
+    }
+
+    // If not logged in, but user was working on a tool as a guest
+    if (savedTool && savedTool !== 'landing' && savedTool !== 'login') {
+      return savedTool;
+    }
+
+    return 'landing';
+  });
 
   // Sidebar interactive states
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
@@ -81,8 +101,40 @@ export default function App() {
   // Command palette modal state
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
 
+  // Profile and account settings modal state
+  const [profileModalOpen, setProfileModalOpen] = useState(false);
+
   // Toast notification state
   const [toasts, setToasts] = useState([]);
+
+  // Dynamically update document title, meta tags, and URL query string for SEO & deep links
+  useEffect(() => {
+    updateDocumentSeo(activeTool);
+    syncUrlWithTool(activeTool);
+  }, [activeTool]);
+
+  // Support browser Back and Forward navigation buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      const toolFromUrl = getToolFromUrl();
+      if (toolFromUrl) {
+        setActiveTool(toolFromUrl);
+      } else {
+        const wasLoggedIn = localStorage.getItem('dreamkit_logged_in') === 'true';
+        setActiveTool(wasLoggedIn ? 'dashboard' : 'landing');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Persist active tool location across page refreshes
+  useEffect(() => {
+    if (activeTool && activeTool !== 'login') {
+      localStorage.setItem('dreamkit_active_tool', activeTool);
+    }
+  }, [activeTool]);
 
   // Apply theme to document root
   useEffect(() => {
@@ -204,6 +256,19 @@ export default function App() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       setAuthLoading(false);
+      if (user) {
+        localStorage.setItem('dreamkit_logged_in', 'true');
+        // If user is logged in but currently on landing or login, route to saved tool or dashboard
+        setActiveTool((current) => {
+          if (current === 'landing' || current === 'login') {
+            const saved = localStorage.getItem('dreamkit_active_tool');
+            return (saved && saved !== 'landing' && saved !== 'login') ? saved : 'dashboard';
+          }
+          return current;
+        });
+      } else {
+        localStorage.removeItem('dreamkit_logged_in');
+      }
     });
     return () => unsubscribe();
   }, []);
@@ -212,6 +277,9 @@ export default function App() {
     try {
       await logoutUser();
       setCurrentUser(null);
+      localStorage.removeItem('dreamkit_logged_in');
+      localStorage.setItem('dreamkit_active_tool', 'landing');
+      setActiveTool('landing');
       addToast('Signed out of account', 'info');
     } catch {
       addToast('Failed to sign out', 'error');
@@ -229,7 +297,10 @@ export default function App() {
         <LoginPage
           onLoginSuccess={(user) => {
             setCurrentUser(user);
-            setActiveTool('dashboard');
+            localStorage.setItem('dreamkit_logged_in', 'true');
+            const saved = localStorage.getItem('dreamkit_active_tool');
+            const targetTool = (saved && saved !== 'landing' && saved !== 'login') ? saved : 'dashboard';
+            setActiveTool(targetTool);
             addToast(`Signed in as ${user.displayName || user.email}`, 'success');
           }}
           onBackToHome={() => setActiveTool('landing')}
@@ -253,6 +324,7 @@ export default function App() {
           currentUser={currentUser}
           onLogin={() => setActiveTool('login')}
           onLogout={handleLogout}
+          onOpenProfileSettings={() => setProfileModalOpen(true)}
         />
 
         {/* Command Palette Quick Switcher Modal */}
@@ -260,6 +332,17 @@ export default function App() {
           isOpen={commandPaletteOpen}
           onClose={() => setCommandPaletteOpen(false)}
           onSelectTool={setActiveTool}
+        />
+
+        {/* Profile & Account Settings Modal */}
+        <ProfileSettingsModal
+          isOpen={profileModalOpen}
+          onClose={() => setProfileModalOpen(false)}
+          currentUser={currentUser}
+          onLogout={handleLogout}
+          theme={theme}
+          onToggleTheme={toggleTheme}
+          onNotify={addToast}
         />
 
         {/* Toast Notification Container */}
@@ -270,7 +353,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex bg-[#F8FAFC] dark:bg-[#080C14] text-[#0F172A] dark:text-[#F8FAFC] selection:bg-indigo-500 selection:text-white transition-colors duration-200">
-      {/* Interactive Sidebar */}
+      {/* Interactive Hostinger-Style Sidebar */}
       <Sidebar
         activeTool={activeTool}
         onSelectTool={setActiveTool}
@@ -278,12 +361,13 @@ export default function App() {
         onToggleCollapse={toggleSidebarCollapse}
         mobileOpen={mobileSidebarOpen}
         onCloseMobile={() => setMobileSidebarOpen(false)}
+        onOpenProfileSettings={() => setProfileModalOpen(true)}
       />
 
       {/* Main Content Area (shifted based on desktop sidebar width) */}
       <div
         className={`flex-1 flex flex-col min-h-screen w-full transition-all duration-300 ease-in-out ${
-          sidebarCollapsed ? 'lg:pl-[76px]' : 'lg:pl-64'
+          sidebarCollapsed ? 'lg:pl-16' : 'lg:pl-[320px]'
         }`}
       >
         {/* Top Sticky Admin Navbar */}
@@ -297,6 +381,7 @@ export default function App() {
           currentUser={currentUser}
           onLogin={() => setActiveTool('login')}
           onLogout={handleLogout}
+          onOpenProfileSettings={() => setProfileModalOpen(true)}
         />
 
         {/* Dynamic Tool Workspace */}
@@ -458,6 +543,17 @@ export default function App() {
         isOpen={commandPaletteOpen}
         onClose={() => setCommandPaletteOpen(false)}
         onSelectTool={setActiveTool}
+      />
+
+      {/* Profile & Account Settings Modal */}
+      <ProfileSettingsModal
+        isOpen={profileModalOpen}
+        onClose={() => setProfileModalOpen(false)}
+        currentUser={currentUser}
+        onLogout={handleLogout}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        onNotify={addToast}
       />
 
       {/* Toast Notification Container */}

@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import {
-  ArrowUpDown,
   RotateCw,
   RotateCcw,
   ArrowLeft,
@@ -466,30 +465,20 @@ export default function PdfReorderSuite({ _theme = 'dark', onNotify }) {
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
-      {/* =========================================================================
-          MODULE HEADER (STANDARD DREAMKIT SUITE HEADER)
-         ========================================================================= */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-white dark:bg-[#111622] border border-slate-200/80 dark:border-slate-800 shadow-xs">
-        <div className="flex items-center gap-3.5">
-          <div className="p-2.5 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 text-white shadow-md shadow-indigo-500/20">
-            <ArrowUpDown className="w-6 h-6" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
-                PDF Page Reorder Studio
-              </h1>
-              <span className="px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-950/70 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-800">
-                Lossless Engine
-              </span>
-            </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Rearrange, reverse, rotate, duplicate, or delete pages with live thumbnail preview and lossless export.
-            </p>
+      {/* Top Action & Status Toolbar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 p-2.5 rounded-2xl bg-white dark:bg-[#111622] border border-slate-200/80 dark:border-slate-800 shadow-2xs">
+        {/* Status & Privacy Badges */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-950/70 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-800">
+            Lossless Engine
+          </span>
+          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-[11px] font-medium">
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>Local Browser Processing • 100% In-Browser</span>
           </div>
         </div>
 
-        {/* Action Header Buttons */}
+        {/* Action Buttons */}
         <div className="flex items-center gap-2 flex-wrap">
           <button
             type="button"
@@ -499,11 +488,6 @@ export default function PdfReorderSuite({ _theme = 'dark', onNotify }) {
             <History className="w-3.5 h-3.5 text-slate-500" />
             <span>History ({historyList.length})</span>
           </button>
-
-          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-medium">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            <span>Local Browser Processing</span>
-          </div>
         </div>
       </div>
 

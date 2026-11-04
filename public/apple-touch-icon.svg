@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
+  <defs>
+    <linearGradient id="appleBg" x1="0" y1="0" x2="180" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="50%" stop-color="#7C3AED" />
+      <stop offset="100%" stop-color="#9333EA" />
+    </linearGradient>
+    <linearGradient id="appleBevel" x1="90" y1="0" x2="90" y2="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="appleSpark" x1="90" y1="45" x2="130" y2="135" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="70%" stop-color="#E0E7FF" />
+      <stop offset="100%" stop-color="#C7D2FE" />
+    </linearGradient>
+    <filter id="appleShadow" x="30" y="30" width="120" height="120" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#1E1B4B" flood-opacity="0.45" />
+    </filter>
+  </defs>
+
+  <rect width="180" height="180" rx="42" fill="url(#appleBg)" />
+  <rect x="2" y="2" width="176" height="176" rx="40" stroke="url(#appleBevel)" stroke-width="4" />
+
+  <g transform="translate(18, 18) scale(3)" filter="url(#appleShadow)">
+    <path
+      d="M13 12C13 10.8954 13.8954 10 15 10H24C31.1797 10 37 15.8203 37 23C37 30.1797 31.1797 36 24 36H15C13.8954 36 13 35.1046 13 34V12ZM19 16V30H24C27.866 30 31 26.866 31 23C31 19.134 27.866 16 24 16H19Z"
+      fill="url(#appleSpark)"
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+    />
+    <path
+      d="M24.5 17C24.5 20.3 22 23 18.7 23C22 23 24.5 25.7 24.5 29C24.5 25.7 27 23 30.3 23C27 23 24.5 20.3 24.5 17Z"
+      fill="#FFFFFF"
+    />
+    <circle cx="34" cy="13" r="2" fill="#FDE047" />
+  </g>
+</svg>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import {
-  Palette,
   Lock,
   Unlock,
   Copy,
@@ -424,27 +423,20 @@ export default function ColorPaletteSuite({ _theme = 'dark', onNotify }) {
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fade-in">
       
       {/* ======================================================== */}
-      {/* 1. HEADER & CONTROL TOOLBAR                              */}
+      {/* 1. CONTROL TOOLBAR                                       */}
       {/* ======================================================== */}
-      <div className="bg-white dark:bg-[#111622] rounded-2xl border border-slate-200/80 dark:border-slate-800 p-6 shadow-sm">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+      <div className="bg-white dark:bg-[#111622] rounded-2xl border border-slate-200/80 dark:border-slate-800 p-4 sm:p-5 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           
-          {/* Title & Editable Name */}
-          <div className="space-y-1">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/20">
-                <Palette className="w-5 h-5" />
-              </div>
-              <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                Color Palette Generator
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60">
-                  Pro Studio
-                </span>
-              </h1>
+          {/* Status & Capability Badges */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-100 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800/60">
+              Pro Studio
+            </span>
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 text-[11px] text-slate-500 dark:text-slate-400">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+              <span>36+ Curated Palettes • Real-time WCAG</span>
             </div>
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-              Explore 36+ curated palettes, generate harmonies, simulate color vision, and export production tokens.
-            </p>
           </div>
 
           {/* Primary Action Buttons */}
